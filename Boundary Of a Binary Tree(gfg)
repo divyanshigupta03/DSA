@@ -1,0 +1,43 @@
+class Solution {
+    ArrayList<Integer> boundaryTraversal(Node root) {
+        // code here
+        ArrayList<Integer> ans = new ArrayList<>();
+        ans.add(root.data);
+        leftBoundary(root.left,ans);
+        leftleafBoundary(root.left , ans);
+        rightleafBoundary(root.right , ans);
+        rightBoundary(root.right, ans);
+        return ans;
+    }
+    
+    public void leftBoundary(Node root, ArrayList<Integer> ans){
+        if(root == null) return;
+        if(root.left == null && root.right == null) return;
+        ans.add(root.data);
+        if(root.left != null) leftBoundary(root.left , ans);
+        else leftBoundary(root.right , ans);
+    }
+    
+    public void leftleafBoundary(Node root, ArrayList<Integer> ans){
+        if(root == null) return;
+        if(root.left == null && root.right == null) ans.add(root.data);
+        leftleafBoundary(root.left , ans);
+        leftleafBoundary(root.right , ans);
+    }
+    
+    
+    public void rightleafBoundary(Node root, ArrayList<Integer> ans){
+        if(root == null) return;
+        if(root.left == null && root.right == null) ans.add(root.data);
+        rightleafBoundary(root.left , ans);
+        rightleafBoundary(root.right , ans);
+    }
+    
+    public void rightBoundary(Node root, ArrayList<Integer> ans){
+        if(root == null) return;
+        if(root.left == null && root.right == null) return;
+        if(root.right != null) rightBoundary(root.right, ans);
+        else rightBoundary(root.left, ans);
+        ans.add(root.data);
+    }
+}
